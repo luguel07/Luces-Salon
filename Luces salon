@@ -1,0 +1,66 @@
+//Codigo luces salon por Luis Miguel Correa Vargas Grupo 301
+const int TriggerPin = PB10;
+const int EchoPin = PB11;
+const int BombilloBlanco= PB6;
+const int BombilloVerde= PB1;
+const int BombilloAmarillo= PB7;
+const int BombilloRojo= PB9;
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TriggerPin, OUTPUT);
+  pinMode(EchoPin, INPUT);
+  pinMode(BombilloBlanco,OUTPUT);
+  pinMode(BombilloVerde,OUTPUT);
+  pinMode(BombilloAmarillo,OUTPUT);
+  pinMode(BombilloRojo,OUTPUT);
+
+  
+}
+
+void loop() {
+  int cm = ping(TriggerPin, EchoPin);
+ 
+}
+
+int ping(int TriggerPin, int EchoPin) {
+  long duration, distanceCm;
+  
+  digitalWrite(TriggerPin, LOW);  
+  delayMicroseconds(2);
+  digitalWrite(TriggerPin, HIGH);  //generamos Trigger (disparo) de 5ms
+  delayMicroseconds(5);
+  digitalWrite(TriggerPin, LOW);
+  
+  duration = pulseIn(EchoPin, HIGH);  //medimos el tiempo entre pulsos, en microseg
+  
+  distanceCm = duration * 10 / 292/ 2;   //convertimos a distancia, en cm
+ 
+  if (distanceCm <=25){
+     digitalWrite(BombilloBlanco,HIGH);
+     delay(200);
+  digitalWrite(BombilloVerde,HIGH);
+   delay(200);
+  digitalWrite(BombilloAmarillo,HIGH);
+   delay(200);
+  digitalWrite(BombilloRojo,HIGH);
+   delay(200);
+ encendido();
+ delay(5000);
+ }
+
+else{
+digitalWrite(BombilloBlanco,LOW);
+ digitalWrite(BombilloVerde,LOW);
+  digitalWrite(BombilloAmarillo,LOW);
+  digitalWrite(BombilloRojo,LOW);
+ apagado();
+}
+}
+void apagado(){
+  Serial.println("**Apagado**");
+}
+void encendido(){
+  Serial.println("**Encendido**");
+}
