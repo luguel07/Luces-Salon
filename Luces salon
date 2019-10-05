@@ -47,7 +47,7 @@ int ping(int TriggerPin, int EchoPin) {
   digitalWrite(BombilloRojo,HIGH);
    delay(200);
  encendido();
- delay(5000);
+ delay(30000);
  }
 
 else{
